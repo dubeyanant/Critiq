@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:critiq/screens/home.dart';
+import 'package:critiq/controllers/mode_controller.dart';
 
 var kBookLightColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
