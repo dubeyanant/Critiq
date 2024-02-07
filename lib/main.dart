@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:critiq/screens/book.dart';
-import 'package:critiq/screens/movie.dart';
-
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:critiq/screens/home.dart';
 
 var kBookLightColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
@@ -20,8 +18,6 @@ class ModeController extends GetxController {
   Rx<bool> switchBool = false.obs;
 }
 
-final ModeController mc = Get.put(ModeController());
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -29,6 +25,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ModeController mc = Get.put(ModeController());
+
     return Obx(
       () => MaterialApp(
         title: 'Critiq',
@@ -38,68 +36,8 @@ class MyApp extends StatelessWidget {
               : kBookLightColorScheme,
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        home: const HomeScreen(),
       ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final MaterialStateProperty<Icon?> thumbIcon =
-        MaterialStateProperty.resolveWith<Icon?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
-          return const Icon(Icons.movie);
-        }
-        return const Icon(
-          Icons.book,
-          color: Colors.black,
-        );
-      },
-    );
-    final MaterialStateProperty<Color?> outlineColor =
-        MaterialStateProperty.resolveWith<Color?>(
-      (final Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
-          return null;
-        }
-
-        return Colors.blue;
-      },
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
-        actions: <Widget>[
-          Obx(
-            () => Switch(
-              thumbIcon: thumbIcon,
-              inactiveTrackColor: Colors.blue,
-              inactiveThumbColor: Colors.white,
-              value: mc.switchBool.value,
-              trackOutlineColor: outlineColor,
-              onChanged: (bool value) {
-                if (value) {
-                  mc.switchBool.value = true;
-                } else {
-                  mc.switchBool.value = false;
-                }
-              },
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: mc.switchBool.value ? const MovieScreen() : const BookScreen(),
     );
   }
 }
