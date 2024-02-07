@@ -1,9 +1,10 @@
+import 'package:critiq/screens/all_items.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:critiq/screens/add.dart';
+import 'package:critiq/screens/add_item.dart';
 import 'package:critiq/controllers/mode_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -66,7 +67,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             GestureDetector(
-              onTap: () => Get.to(() => const AddScreen()),
+              onTap: () => Get.to(() => const AddItemScreen()),
               child: Container(
                 alignment: Alignment.centerLeft,
                 width: double.maxFinite,
@@ -85,7 +86,37 @@ class HomeScreen extends StatelessWidget {
                     const Icon(Icons.add_circle, size: 24),
                     const SizedBox(width: 16),
                     Text(
-                      mc.switchBool.value ? 'Add a movie' : 'Add a book',
+                      mc.switchBool.value ? 'Rate a movie' : 'Rate a book',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => Get.to(() => const AllItemsScreen()),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                width: double.maxFinite,
+                height: 64,
+                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                padding: const EdgeInsets.only(left: 16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                        mc.switchBool.value
+                            ? Icons.local_movies
+                            : Icons.book_rounded,
+                        size: 24),
+                    const SizedBox(width: 16),
+                    Text(
+                      mc.switchBool.value ? 'All movies' : 'All books',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ],
