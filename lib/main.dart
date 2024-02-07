@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
+import 'package:critiq/screens/home.dart';
+import 'package:critiq/controllers/mode_controller.dart';
+
+var kBookLightColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.light,
+  seedColor: Colors.lightBlue,
+);
+
+var kMovieLightColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.light,
+  seedColor: Colors.red,
+);
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -7,31 +22,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Critiq',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
+    final ModeController mc = Get.put(ModeController());
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Critiq'),
-      ),
-      body: const Center(
-        child: Text(
-          'Welcome to Critiq!',
+    return Obx(
+      () => GetMaterialApp(
+        title: 'Critiq',
+        theme: ThemeData(
+          colorScheme: mc.switchBool.value
+              ? kMovieLightColorScheme
+              : kBookLightColorScheme,
+          useMaterial3: true,
         ),
+        home: const HomeScreen(),
       ),
     );
   }
