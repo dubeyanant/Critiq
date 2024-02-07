@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:critiq/main.dart';
+import 'package:critiq/screens/add.dart';
+
+class ModeController extends GetxController {
+  Rx<bool> switchBool = false.obs;
+}
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,6 +28,7 @@ class HomeScreen extends StatelessWidget {
         );
       },
     );
+
     final MaterialStateProperty<Color?> outlineColor =
         MaterialStateProperty.resolveWith<Color?>(
       (final Set<MaterialState> states) {
@@ -64,7 +69,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             GestureDetector(
-              onTap: null,
+              onTap: () => Get.to(const AddScreen()),
               child: Container(
                 alignment: Alignment.centerLeft,
                 width: double.maxFinite,

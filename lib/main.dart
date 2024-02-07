@@ -14,10 +14,6 @@ var kMovieLightColorScheme = ColorScheme.fromSeed(
   seedColor: Colors.red,
 );
 
-class ModeController extends GetxController {
-  Rx<bool> switchBool = false.obs;
-}
-
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -28,7 +24,7 @@ class MyApp extends StatelessWidget {
     final ModeController mc = Get.put(ModeController());
 
     return Obx(
-      () => MaterialApp(
+      () => GetMaterialApp(
         title: 'Critiq',
         theme: ThemeData(
           colorScheme: mc.switchBool.value
