@@ -17,7 +17,6 @@ var kMovieLightColorScheme = ColorScheme.fromSeed(
 );
 
 class ModeController extends GetxController {
-  Rx<ColorScheme> mode = kBookLightColorScheme.obs;
   Rx<bool> switchBool = false.obs;
 }
 
@@ -34,7 +33,9 @@ class MyApp extends StatelessWidget {
       () => MaterialApp(
         title: 'Critiq',
         theme: ThemeData(
-          colorScheme: mc.mode.value,
+          colorScheme: mc.switchBool.value
+              ? kMovieLightColorScheme
+              : kBookLightColorScheme,
           useMaterial3: true,
         ),
         home: const HomePage(),
@@ -71,13 +72,13 @@ class HomePage extends StatelessWidget {
       },
     );
 
-    return Obx(
-      () => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
-          actions: <Widget>[
-            Switch(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
+        actions: <Widget>[
+          Obx(
+            () => Switch(
               thumbIcon: thumbIcon,
               inactiveTrackColor: Colors.blue,
               inactiveThumbColor: Colors.white,
@@ -85,22 +86,20 @@ class HomePage extends StatelessWidget {
               trackOutlineColor: outlineColor,
               onChanged: (bool value) {
                 if (value) {
-                  mc.mode.value = kMovieLightColorScheme;
                   mc.switchBool.value = true;
                 } else {
-                  mc.mode.value = kBookLightColorScheme;
                   mc.switchBool.value = false;
                 }
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: mc.switchBool.value ? const MovieScreen() : const BookScreen(),
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {},
+          ),
+        ],
       ),
+      body: mc.switchBool.value ? const MovieScreen() : const BookScreen(),
     );
   }
 }
