@@ -7,8 +7,8 @@ import 'package:critiq/controllers/mode_controller.dart';
 
 final ModeController mc = Get.find();
 
-class AddScreen extends StatelessWidget {
-  const AddScreen({super.key});
+class AddItemScreen extends StatelessWidget {
+  const AddItemScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,48 +18,66 @@ class AddScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SliderGroup(),
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                OutlinedButton.icon(
-                  onPressed: () {
-                    Get.back();
+                const SizedBox(height: 56),
+                TextField(
+                  onChanged: (String value) {
+                    sc.itemTitle.value = value;
                   },
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text('Back'),
+                  decoration: InputDecoration(
+                    labelText: mc.switchBool.value
+                        ? 'Enter Movie Title'
+                        : 'Enter Book Title',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 48),
-                ElevatedButton.icon(
-                  onPressed: sc.calculateRating,
-                  icon: const Icon(Icons.calculate),
-                  label: const Text('Calculate'),
+                const SizedBox(height: 40),
+                const SliderGroup(),
+                const SizedBox(height: 32),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                      label: const Text('Back'),
+                    ),
+                    const SizedBox(width: 48),
+                    ElevatedButton.icon(
+                      onPressed: sc.calculateRating,
+                      icon: const Icon(Icons.calculate),
+                      label: const Text('Calculate'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32),
+                Text(
+                  mc.switchBool.value
+                      ? 'This movie rating is:'
+                      : 'This book rating is:',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Obx(
+                  () => Text(
+                    '${sc.rating}/5',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .copyWith(fontSize: 48),
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 40),
-            Text(
-              mc.switchBool.value
-                  ? 'This movie rating is:'
-                  : 'This book rating is:',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            Obx(
-              () => Text(
-                '${sc.rating}/5',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontSize: 48),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
