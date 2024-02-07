@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: <Widget>[
             GestureDetector(
-              onTap: () => Get.to(const AddScreen()),
+              onTap: () => Get.to(() => const AddScreen()),
               child: Container(
                 alignment: Alignment.centerLeft,
                 width: double.maxFinite,

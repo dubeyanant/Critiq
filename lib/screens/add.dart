@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:critiq/controllers/slider_controller.dart';
 import 'package:critiq/controllers/mode_controller.dart';
 
-final ModeController mc = Get.put(ModeController());
+final ModeController mc = Get.find();
 
 class AddScreen extends StatelessWidget {
   const AddScreen({super.key});

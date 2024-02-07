@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:critiq/screens/home.dart';
 import 'package:critiq/controllers/mode_controller.dart';
+import 'package:critiq/database/db_helper.dart';
 
 var kBookLightColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
@@ -15,7 +17,12 @@ var kMovieLightColorScheme = ColorScheme.fromSeed(
   seedColor: Colors.red,
 );
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
+  await DBHelper().database;
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

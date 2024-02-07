@@ -11,6 +11,7 @@ class DBHelper {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
+
     // lazily instantiate the db the first time it is accessed
     _database = await _initDB();
     return _database!;
@@ -51,5 +52,10 @@ class DBHelper {
   Future<int> delete(int id) async {
     Database? db = DBHelper._database;
     return await db!.delete(_itemTable, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteAllItem() async {
+    Database? db = DBHelper._database;
+    return await db!.delete(_itemTable);
   }
 }
