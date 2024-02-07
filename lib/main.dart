@@ -4,6 +4,7 @@ import 'package:critiq/screens/book.dart';
 import 'package:critiq/screens/movie.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 var kBookLightColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
       () => Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('Critiq'),
+          title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
           actions: <Widget>[
             Switch(
               thumbIcon: thumbIcon,
