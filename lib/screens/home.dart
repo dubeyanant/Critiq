@@ -4,10 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:critiq/screens/add.dart';
-
-class ModeController extends GetxController {
-  Rx<bool> switchBool = false.obs;
-}
+import 'package:critiq/controllers/mode_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
