@@ -1,5 +1,5 @@
 class Item {
-  final int id;
+  int? id;
   final String title;
   final double initialResponseRating;
   final double recommendationRating;
@@ -10,7 +10,7 @@ class Item {
   final double rating;
 
   Item({
-    required this.id,
+    this.id,
     required this.title,
     required this.initialResponseRating,
     required this.recommendationRating,
@@ -21,18 +21,20 @@ class Item {
     required this.rating,
   });
 
+  // Below function is used to convert the map to the item object
   Item.fromMap(Map<String, dynamic> item)
       : id = item["id"],
         title = item["title"],
-        characterRating = item["characterRating"],
-        endingRating = item["endingRating"],
-        initialResponseRating = item["initialResponseRating"],
-        plotRating = item["plotRating"],
-        recommendationRating = item["recommendationRating"],
-        rewatchabilityRating = item["rewatchabilityRating"],
-        rating = item["rating"];
+        characterRating = item["characterRating"].toDouble(),
+        endingRating = item["endingRating"].toDouble(),
+        initialResponseRating = item["initialResponseRating"].toDouble(),
+        plotRating = item["plotRating"].toDouble(),
+        recommendationRating = item["recommendationRating"].toDouble(),
+        rewatchabilityRating = item["rewatchabilityRating"].toDouble(),
+        rating = item["rating"].toDouble();
 
-  Map<String, Object> toMap() {
+  // Below function is used to convert the item object to the map for the database
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,

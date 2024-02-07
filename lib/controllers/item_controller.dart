@@ -6,19 +6,24 @@ import 'package:critiq/models/item.dart';
 class ItemController extends GetxController {
   RxList itemList = <Item>[].obs;
 
-  Future<void> getTask() async {
+  Future<void> getItem() async {
     final List<Map<String, dynamic>> items = await DBHelper().queryAllRows();
     itemList.assignAll(items.map((data) => Item.fromMap(data)).toList());
   }
 
-  addTask(Item task) async {
-    await DBHelper().insertItem(task);
-    itemList.add(task);
-    getTask();
+  addItem(Item item) async {
+    await DBHelper().insertItem(item);
+    itemList.add(item);
+    getItem();
   }
 
-  deleteTask(int? id) async {
+  deleteItem(int? id) async {
     await DBHelper().delete(id!);
-    getTask();
+    getItem();
+  }
+
+  deleteAllItems() async {
+    await DBHelper().deleteAllItem();
+    getItem();
   }
 }
