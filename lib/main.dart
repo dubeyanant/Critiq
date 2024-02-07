@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:critiq/screens/book.dart';
+import 'package:critiq/screens/movie.dart';
+
 import 'package:get/get.dart';
 
 var kBookLightColorScheme = ColorScheme.fromSeed(
@@ -67,13 +70,13 @@ class HomePage extends StatelessWidget {
       },
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Critiq'),
-        actions: <Widget>[
-          Obx(
-            () => Switch(
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Critiq'),
+          actions: <Widget>[
+            Switch(
               thumbIcon: thumbIcon,
               inactiveTrackColor: Colors.blue,
               inactiveThumbColor: Colors.white,
@@ -89,18 +92,13 @@ class HomePage extends StatelessWidget {
                 }
               },
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: 'Settings',
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: const Center(
-        child: Text(
-          'Welcome to Critiq!',
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {},
+            ),
+          ],
         ),
+        body: mc.switchBool.value ? const MovieScreen() : const BookScreen(),
       ),
     );
   }
