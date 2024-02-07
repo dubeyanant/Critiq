@@ -11,135 +11,195 @@ class SliderController extends GetxController {
   Rx<double> plotScale = (0.0).obs;
   Rx<double> characterScale = (0.0).obs;
   Rx<double> endingScale = (0.0).obs;
+  Rx<double> rating = 0.0.obs;
+
+  void calculateRating() {
+    rating.value = (initialResponseScale.value +
+            recommendationScale.value +
+            rewatchabilityScale.value +
+            plotScale.value +
+            characterScale.value +
+            endingScale.value +
+            5) /
+        10;
+
+/**
+ * Below function is used for rounding the rating value to nearest .5
+ */
+    rating.value = ((rating.value * 2).round() / 2);
+  }
 }
+
+final ModeController mc = Get.put(ModeController());
 
 class AddScreen extends StatelessWidget {
   const AddScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ModeController mc = Get.put(ModeController());
+    final SliderController sc = Get.put(SliderController());
+
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SliderGroup(),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                OutlinedButton.icon(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                  label: const Text('Back'),
+                ),
+                const SizedBox(width: 48),
+                ElevatedButton.icon(
+                  onPressed: sc.calculateRating,
+                  icon: const Icon(Icons.calculate),
+                  label: const Text('Calculate'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 40),
+            Text(
+              mc.switchBool.value
+                  ? 'This movie rating is:'
+                  : 'This book rating is:',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Obx(
+              () => Text(
+                '${sc.rating}/5',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontSize: 48),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SliderGroup extends StatelessWidget {
+  const SliderGroup({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
 
     return Obx(
-      () => Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        body: SafeArea(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Initial Response',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Slider(
-                  value: sc.initialResponseScale.value,
-                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-                  max: 9,
-                  divisions: 10,
-                  label: (sc.initialResponseScale.value.round() + 1).toString(),
-                  onChanged: (double value) {
-                    sc.initialResponseScale.value = value;
-                  },
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Recommendation',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Slider(
-                  value: sc.recommendationScale.value,
-                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-                  max: 9,
-                  divisions: 10,
-                  label: (sc.recommendationScale.value.round() + 1).toString(),
-                  onChanged: (double value) {
-                    sc.recommendationScale.value = value;
-                  },
-                ),
-                const SizedBox(height: 16),
-                mc.switchBool.value
-                    ? Text(
-                        'Rewatchability',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      )
-                    : const SizedBox(),
-                mc.switchBool.value
-                    ? Slider(
-                        value: sc.rewatchabilityScale.value,
-                        inactiveColor:
-                            Theme.of(context).colorScheme.inversePrimary,
-                        max: 9,
-                        divisions: 10,
-                        label: (sc.rewatchabilityScale.value.round() + 1)
-                            .toString(),
-                        onChanged: (double value) {
-                          sc.rewatchabilityScale.value = value;
-                        },
-                      )
-                    : const SizedBox(),
-                mc.switchBool.value
-                    ? const SizedBox(height: 16)
-                    : const SizedBox(),
-                mc.switchBool.value
-                    ? const SizedBox()
-                    : Text(
-                        'Character',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                mc.switchBool.value
-                    ? const SizedBox()
-                    : Slider(
-                        value: sc.characterScale.value,
-                        inactiveColor:
-                            Theme.of(context).colorScheme.inversePrimary,
-                        max: 9,
-                        divisions: 10,
-                        label: (sc.characterScale.value.round() + 1).toString(),
-                        onChanged: (double value) {
-                          sc.characterScale.value = value;
-                        },
-                      ),
-                mc.switchBool.value
-                    ? const SizedBox()
-                    : const SizedBox(height: 16),
-                Text(
-                  'Plot',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Slider(
-                  value: sc.plotScale.value,
-                  max: 9,
-                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-                  divisions: 10,
-                  label: (sc.plotScale.value.round() + 1).toString(),
-                  onChanged: (double value) {
-                    sc.plotScale.value = value;
-                  },
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Ending',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Slider(
-                  value: sc.endingScale.value,
-                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-                  max: 9,
-                  divisions: 10,
-                  label: (sc.endingScale.value.round() + 1).toString(),
-                  onChanged: (double value) {
-                    sc.endingScale.value = value;
-                  },
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Initial Response',
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-        ),
+          Slider(
+            value: sc.initialResponseScale.value,
+            inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+            max: 9,
+            divisions: 9,
+            label: (sc.initialResponseScale.value.round() + 1).toString(),
+            onChanged: (double value) {
+              sc.initialResponseScale.value = value;
+            },
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Recommendation',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Slider(
+            value: sc.recommendationScale.value,
+            inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+            max: 9,
+            divisions: 9,
+            label: (sc.recommendationScale.value.round() + 1).toString(),
+            onChanged: (double value) {
+              sc.recommendationScale.value = value;
+            },
+          ),
+          const SizedBox(height: 16),
+          mc.switchBool.value
+              ? Text(
+                  'Rewatchability',
+                  style: Theme.of(context).textTheme.titleMedium,
+                )
+              : const SizedBox(),
+          mc.switchBool.value
+              ? Slider(
+                  value: sc.rewatchabilityScale.value,
+                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+                  max: 9,
+                  divisions: 9,
+                  label: (sc.rewatchabilityScale.value.round() + 1).toString(),
+                  onChanged: (double value) {
+                    sc.rewatchabilityScale.value = value;
+                  },
+                )
+              : const SizedBox(),
+          mc.switchBool.value ? const SizedBox(height: 16) : const SizedBox(),
+          mc.switchBool.value
+              ? const SizedBox()
+              : Text(
+                  'Character',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+          mc.switchBool.value
+              ? const SizedBox()
+              : Slider(
+                  value: sc.characterScale.value,
+                  inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+                  max: 9,
+                  divisions: 9,
+                  label: (sc.characterScale.value.round() + 1).toString(),
+                  onChanged: (double value) {
+                    sc.characterScale.value = value;
+                  },
+                ),
+          mc.switchBool.value ? const SizedBox() : const SizedBox(height: 16),
+          Text(
+            'Plot',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Slider(
+            value: sc.plotScale.value,
+            max: 9,
+            inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+            divisions: 9,
+            label: (sc.plotScale.value.round() + 1).toString(),
+            onChanged: (double value) {
+              sc.plotScale.value = value;
+            },
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Ending',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Slider(
+            value: sc.endingScale.value,
+            inactiveColor: Theme.of(context).colorScheme.inversePrimary,
+            max: 9,
+            divisions: 9,
+            label: (sc.endingScale.value.round() + 1).toString(),
+            onChanged: (double value) {
+              sc.endingScale.value = value;
+            },
+          ),
+        ],
       ),
     );
   }
