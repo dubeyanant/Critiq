@@ -1,9 +1,10 @@
-import 'package:critiq/screens/all_items.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:critiq/screens/favourite.dart';
+import 'package:critiq/screens/all_items.dart';
 import 'package:critiq/screens/add_item.dart';
 import 'package:critiq/controllers/mode_controller.dart';
 
@@ -73,8 +74,7 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 width: double.maxFinite,
                 height: 64,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
                 padding: const EdgeInsets.only(left: 16),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 width: double.maxFinite,
                 height: 64,
-                margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
                 padding: const EdgeInsets.only(left: 16),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -113,11 +113,39 @@ class HomeScreen extends StatelessWidget {
                     Icon(
                         mc.switchBool.value
                             ? Icons.local_movies
-                            : Icons.book_rounded,
+                            : Icons.library_books,
                         size: 24),
                     const SizedBox(width: 16),
                     Text(
                       mc.switchBool.value ? 'All movies' : 'All books',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => Get.to(() => const FavouriteScreen()),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                width: double.maxFinite,
+                height: 64,
+                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.stars, size: 24),
+                    const SizedBox(width: 16),
+                    Text(
+                      mc.switchBool.value
+                          ? 'Favourite movies'
+                          : 'Favourite books',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ],

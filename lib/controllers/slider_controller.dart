@@ -44,6 +44,7 @@ class SliderController extends GetxController {
       endingRating: endingScale.value,
       rating: rating.value,
       type: mc.switchBool.value,
+      isFavourite: false,
     );
 
     try {

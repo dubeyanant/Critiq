@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/item_controller.dart';
+import 'package:critiq/controllers/mode_controller.dart';
 
-class AllItemsScreen extends StatelessWidget {
-  const AllItemsScreen({super.key});
+class FavouriteScreen extends StatelessWidget {
+  const FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +19,23 @@ class AllItemsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
-          mc.switchBool.value ? 'All Movies' : 'All Books',
+          mc.switchBool.value ? 'Favourite Movies' : 'Favourite Books',
         ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.delete_forever),
             onPressed: () {
-              // Get.snackbar(
-              //   'All Data',
-              //   'deleted successfully',
-              //   dismissDirection: DismissDirection.horizontal,
-              // );
               ic.deleteCategory(mc.switchBool.toString());
             },
-            tooltip: 'Delete All Items',
+            tooltip: 'Delete All Favourites',
           ),
         ],
       ),
       body: Obx(
         () => ListView.builder(
           itemBuilder: (context, index) => ic.itemList[index].type ==
-                  mc.switchBool.value
+                      mc.switchBool.value &&
+                  ic.itemList[index].isFavourite == true
               ? Container(
                   margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
                   child: Slidable(
