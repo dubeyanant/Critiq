@@ -8,8 +8,42 @@ import 'package:critiq/screens/all_items.dart';
 import 'package:critiq/screens/add_item.dart';
 import 'package:critiq/controllers/mode_controller.dart';
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  Future<void> fetchBooks() async {
+    const String apiKey = 'YOUR_API_KEY';
+    const String query = '1984'; // Example query
+
+    await http
+        .get(
+          Uri.parse(
+              'https://www.googleapis.com/books/v1/volumes?q=$query&key=$apiKey'),
+        )
+        .then((value) => value.body)
+        .then((value) => print(value));
+
+    // var response = await http.get(
+    //   Uri.parse(
+    //       'https://www.googleapis.com/books/v1/volumes?q=$query&key=$apiKey'),
+    // );
+
+    // if (response.statusCode == 200) {
+    //   // Parse the JSON response
+    //   final Map<String, dynamic> data = jsonDecode(response.body);
+    //   final List<dynamic> items = data['items'];
+
+    //   // Process the book data
+    //   for (var item in items) {
+    //     print(item['volumeInfo']['title']);
+    //   }
+    // } else {
+    //   throw Exception('Failed to load books');
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +95,7 @@ class HomeScreen extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () {},
+              onPressed: fetchBooks,
             ),
           ],
         ),
