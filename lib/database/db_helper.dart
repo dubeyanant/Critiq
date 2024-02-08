@@ -79,6 +79,12 @@ class DBHelper {
     return await db!.delete(_itemTable, where: 'type = ?', whereArgs: [type]);
   }
 
+  Future<int> deleteFavourites(String type, String isFavourite) async {
+    Database? db = DBHelper._database;
+    return await db!.delete(_itemTable,
+        where: 'type = ? AND isFavourite = ?', whereArgs: [type, isFavourite]);
+  }
+
   Future<int> deleteAllItem() async {
     Database? db = DBHelper._database;
     return await db!.delete(_itemTable);

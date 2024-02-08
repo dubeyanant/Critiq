@@ -43,8 +43,7 @@ class HomeScreen extends StatelessWidget {
       () => Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(mc.switchBool.value ? 'Critiq Movies' : 'Critiq Books',
-              style: GoogleFonts.getFont('Pacifico')),
+          title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
           actions: <Widget>[
             Switch(
               thumbIcon: thumbIcon,
@@ -68,89 +67,66 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            GestureDetector(
-              onTap: () => Get.to(() => const AddItemScreen()),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                width: double.maxFinite,
-                height: 64,
-                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                padding: const EdgeInsets.only(left: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.add_circle, size: 24),
-                    const SizedBox(width: 16),
-                    Text(
-                      mc.switchBool.value ? 'Rate a movie' : 'Rate a book',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+            HomeItem(
+              itemIcon: Icons.add_circle,
+              itemTitle: mc.switchBool.value ? 'Rate a movie' : 'Rate a book',
+              screenName: const AddItemScreen(),
             ),
-            GestureDetector(
-              onTap: () => Get.to(() => const AllItemsScreen()),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                width: double.maxFinite,
-                height: 64,
-                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                padding: const EdgeInsets.only(left: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                        mc.switchBool.value
-                            ? Icons.local_movies
-                            : Icons.library_books,
-                        size: 24),
-                    const SizedBox(width: 16),
-                    Text(
-                      mc.switchBool.value ? 'All movies' : 'All books',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+            HomeItem(
+              itemIcon: mc.switchBool.value
+                  ? Icons.local_movies
+                  : Icons.library_books,
+              itemTitle: mc.switchBool.value ? 'All movies' : 'All books',
+              screenName: const AllItemsScreen(),
             ),
-            GestureDetector(
-              onTap: () => Get.to(() => const FavouriteScreen()),
-              child: Container(
-                alignment: Alignment.centerLeft,
-                width: double.maxFinite,
-                height: 64,
-                margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                padding: const EdgeInsets.only(left: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.stars, size: 24),
-                    const SizedBox(width: 16),
-                    Text(
-                      mc.switchBool.value
-                          ? 'Favourite movies'
-                          : 'Favourite books',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
+            HomeItem(
+              itemIcon: Icons.star,
+              itemTitle:
+                  mc.switchBool.value ? 'Favourite movies' : 'Favourite books',
+              screenName: const FavouriteScreen(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomeItem extends StatelessWidget {
+  const HomeItem({
+    super.key,
+    required this.itemIcon,
+    required this.itemTitle,
+    required this.screenName,
+  });
+
+  final Widget screenName;
+  final IconData itemIcon;
+  final String itemTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.to(() => screenName),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        width: double.maxFinite,
+        height: 64,
+        margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
+        padding: const EdgeInsets.only(left: 16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(itemIcon, size: 24),
+            const SizedBox(width: 16),
+            Text(
+              itemTitle,
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
