@@ -25,7 +25,7 @@ class FavouriteScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete_forever),
             onPressed: () {
-              ic.deleteCategory(mc.switchBool.toString());
+              ic.deleteFavourite(mc.switchBool.toString(), true);
             },
             tooltip: 'Delete All Favourites',
           ),
