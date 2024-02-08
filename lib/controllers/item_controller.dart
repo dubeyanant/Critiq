@@ -22,6 +22,11 @@ class ItemController extends GetxController {
     getItem();
   }
 
+  deleteCategory(String type) async {
+    await DBHelper().deleteCategory(type);
+    getItem();
+  }
+
   deleteAllItems() async {
     await DBHelper().deleteAllItem();
     getItem();

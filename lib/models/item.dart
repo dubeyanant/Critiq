@@ -8,6 +8,7 @@ class Item {
   final double characterRating;
   final double endingRating;
   final double rating;
+  final bool type;
 
   Item({
     this.id,
@@ -19,6 +20,7 @@ class Item {
     required this.plotRating,
     required this.endingRating,
     required this.rating,
+    required this.type,
   });
 
   // Below function is used to convert the map to the item object
@@ -31,7 +33,8 @@ class Item {
         plotRating = item["plotRating"].toDouble(),
         recommendationRating = item["recommendationRating"].toDouble(),
         rewatchabilityRating = item["rewatchabilityRating"].toDouble(),
-        rating = item["rating"].toDouble();
+        rating = item["rating"].toDouble(),
+        type = item["type"] == "true" ? true : false;
 
   // Below function is used to convert the item object to the map for the database
   Map<String, dynamic> toMap() {
@@ -45,6 +48,7 @@ class Item {
       'recommendationRating': recommendationRating,
       'rewatchabilityRating': rewatchabilityRating,
       'rating': rating,
+      'type': type,
     };
   }
 }

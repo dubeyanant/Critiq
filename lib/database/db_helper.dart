@@ -4,8 +4,8 @@ import 'package:path/path.dart';
 import 'package:critiq/models/item.dart';
 
 class DBHelper {
-  static const _databaseName = 'items.db';
-  static const _itemTable = 'tasks_table';
+  static const _databaseName = 'item.db';
+  static const _itemTable = 'item_table';
   static const _databaseVersion = 1;
   static Database? _database;
 
@@ -26,7 +26,7 @@ class DBHelper {
 
   _onCreate(Database db, int version) async {
     await db.execute('CREATE TABLE $_itemTable('
-        'id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, characterRating STRING, endingRating STRING, initialResponseRating STRING, plotRating STRING, recommendationRating STRING, rewatchabilityRating STRING, rating STRING'
+        'id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, characterRating STRING, endingRating STRING, initialResponseRating STRING, plotRating STRING, recommendationRating STRING, rewatchabilityRating STRING, rating STRING, type STRING'
         ')');
   }
 
@@ -41,6 +41,7 @@ class DBHelper {
       'recommendationRating': item.recommendationRating,
       'rewatchabilityRating': item.rewatchabilityRating,
       'rating': item.rating,
+      'type': item.type.toString(),
     });
   }
 
@@ -52,6 +53,11 @@ class DBHelper {
   Future<int> delete(int id) async {
     Database? db = DBHelper._database;
     return await db!.delete(_itemTable, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteCategory(String type) async {
+    Database? db = DBHelper._database;
+    return await db!.delete(_itemTable, where: 'type = ?', whereArgs: [type]);
   }
 
   Future<int> deleteAllItem() async {

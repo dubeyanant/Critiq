@@ -1,10 +1,13 @@
-import 'package:critiq/models/item.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
+import 'package:critiq/models/item.dart';
 import 'package:critiq/controllers/item_controller.dart';
+import 'package:critiq/controllers/mode_controller.dart';
 
 final ItemController ic = Get.put(ItemController());
+final ModeController mc = Get.put(ModeController());
 
 class SliderController extends GetxController {
   Rx<String> itemTitle = "".obs;
@@ -40,6 +43,7 @@ class SliderController extends GetxController {
       characterRating: characterScale.value,
       endingRating: endingScale.value,
       rating: rating.value,
+      type: mc.switchBool.value,
     );
 
     try {
