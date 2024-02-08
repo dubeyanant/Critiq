@@ -17,6 +17,11 @@ class ItemController extends GetxController {
     getItem();
   }
 
+  updateFavourite(int? id, bool? isFavourite) async {
+    await DBHelper().updateFavourites(id!, isFavourite!.toString());
+    getItem();
+  }
+
   deleteItem(int? id) async {
     await DBHelper().delete(id!);
     getItem();
@@ -30,5 +35,9 @@ class ItemController extends GetxController {
   deleteAllItems() async {
     await DBHelper().deleteAllItem();
     getItem();
+  }
+
+  dropDatabase() async {
+    await DBHelper().dropTableAndDatabase();
   }
 }
