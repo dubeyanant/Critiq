@@ -13,6 +13,7 @@ class AddItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -20,62 +21,78 @@ class AddItemScreen extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 24),
         child: SingleChildScrollView(
           child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 56),
-                TextField(
-                  onChanged: (String value) {
-                    sc.itemTitle.value = value;
-                  },
-                  decoration: InputDecoration(
-                    labelText: mc.switchBool.value
-                        ? 'Enter Movie Title'
-                        : 'Enter Book Title',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                const SliderGroup(),
-                const SizedBox(height: 32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    OutlinedButton.icon(
-                      onPressed: () {
-                        Get.back();
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 56),
+                  SizedBox(
+                    height: 88,
+                    child: TextFormField(
+                      onChanged: (String value) {
+                        sc.itemTitle.value = value;
                       },
-                      icon: const Icon(Icons.arrow_back),
-                      label: const Text('Back'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a title';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: mc.switchBool.value
+                            ? 'Enter Movie Title'
+                            : 'Enter Book Title',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 48),
-                    ElevatedButton.icon(
-                      onPressed: sc.calculateRating,
-                      icon: const Icon(Icons.calculate),
-                      label: const Text('Calculate'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 32),
-                Text(
-                  mc.switchBool.value
-                      ? 'This movie rating is:'
-                      : 'This book rating is:',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                Obx(
-                  () => Text(
-                    '${sc.rating}/5',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(fontSize: 48),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 24),
+                  const SliderGroup(),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                        label: const Text('Back'),
+                      ),
+                      const SizedBox(width: 48),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            sc.calculateRating();
+                          }
+                        },
+                        icon: const Icon(Icons.calculate),
+                        label: const Text('Calculate'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  Text(
+                    mc.switchBool.value
+                        ? 'This movie rating is:'
+                        : 'This book rating is:',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Obx(
+                    () => Text(
+                      '${sc.rating}/5',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(fontSize: 48),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -91,13 +108,66 @@ class SliderGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
 
+    final initialResponseSubHeadingScale = [
+      "Very negative",
+      "Somewhat negative",
+      "Indifferent",
+      "Somewhat positive",
+      "Very positive",
+    ];
+    final recommendationSubHeadingScale = [
+      "Highly discourage",
+      "Discourage",
+      "Neutral",
+      "Encourage",
+      "Highly encourage",
+    ];
+    final rewatchabilitySubHeadingScale = [
+      "Definitely not going through it again",
+      "Unlikely to go through it again",
+      "Neutral",
+      "Likely to go through it again",
+      "Definitely will go through it again",
+    ];
+    final plotSubHeadingScale = [
+      "Not engaged at all",
+      "Somewhat engaged",
+      "Moderately engaged",
+      "Very engaged",
+      "Extremely engaged",
+    ];
+    final characterSubHeadingScale = [
+      "Uninteresting",
+      "Slightly interesting",
+      "Moderately interesting",
+      "interesting",
+      "Very interesting",
+    ];
+    final endingSubHeadingScale = [
+      "Worst",
+      "Bad",
+      "Neutral",
+      "Good",
+      "Awesome",
+    ];
+
     return Obx(
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Initial Response',
-            style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Initial Response: ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                initialResponseSubHeadingScale[
+                    (sc.initialResponseScale.value.toInt() / 2).floor()],
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
           ),
           Slider(
             value: sc.initialResponseScale.value,
@@ -110,9 +180,19 @@ class SliderGroup extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          Text(
-            'Recommendation',
-            style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Recommendation: ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                recommendationSubHeadingScale[
+                    (sc.recommendationScale.value.toInt() / 2).floor()],
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
           ),
           Slider(
             value: sc.recommendationScale.value,
@@ -126,9 +206,19 @@ class SliderGroup extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           mc.switchBool.value
-              ? Text(
-                  'Rewatchability',
-                  style: Theme.of(context).textTheme.titleMedium,
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Rewatchability: ',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      rewatchabilitySubHeadingScale[
+                          (sc.rewatchabilityScale.value.toInt() / 2).floor()],
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
                 )
               : const SizedBox(),
           mc.switchBool.value
@@ -146,9 +236,19 @@ class SliderGroup extends StatelessWidget {
           mc.switchBool.value ? const SizedBox(height: 16) : const SizedBox(),
           mc.switchBool.value
               ? const SizedBox()
-              : Text(
-                  'Character',
-                  style: Theme.of(context).textTheme.titleMedium,
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Character: ',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      characterSubHeadingScale[
+                          (sc.characterScale.value.toInt() / 2).floor()],
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
                 ),
           mc.switchBool.value
               ? const SizedBox()
@@ -163,9 +263,18 @@ class SliderGroup extends StatelessWidget {
                   },
                 ),
           mc.switchBool.value ? const SizedBox() : const SizedBox(height: 16),
-          Text(
-            'Plot',
-            style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Plot: ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                plotSubHeadingScale[(sc.plotScale.value.toInt() / 2).floor()],
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
           ),
           Slider(
             value: sc.plotScale.value,
@@ -178,9 +287,19 @@ class SliderGroup extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          Text(
-            'Ending',
-            style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Ending: ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                endingSubHeadingScale[
+                    (sc.endingScale.value.toInt() / 2).floor()],
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
           ),
           Slider(
             value: sc.endingScale.value,
