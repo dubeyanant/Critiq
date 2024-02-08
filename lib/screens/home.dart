@@ -42,7 +42,8 @@ class HomeScreen extends StatelessWidget {
       () => Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text('Critiq', style: GoogleFonts.getFont('Pacifico')),
+          title: Text(mc.switchBool.value ? 'Critiq Movies' : 'Critiq Books',
+              style: GoogleFonts.getFont('Pacifico')),
           actions: <Widget>[
             Switch(
               thumbIcon: thumbIcon,
