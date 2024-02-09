@@ -25,15 +25,15 @@ class FindItems extends StatelessWidget {
           ),
           onSubmitted: (value) {
             bc.itemName.value = value;
-            bc.isSearched.value = true;
           },
         ),
         const SizedBox(height: 24),
         Expanded(
-          child: FutureBuilder(
+          child: Obx(() {
+            return FutureBuilder(
               future: bc.fetchBooks(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (bc.itemName.value == '') {
                   return Center(
                     child: Text(
                       'Search for a book,\nand tap on it to continue!',
@@ -41,13 +41,20 @@ class FindItems extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   );
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 } else if (snapshot.hasError) {
                   return Center(
-                    child: Text(
-                      'No books found.\nSearch for another book.',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+                    child: bc.itemName.value == ''
+                        ? Text(
+                            'No books found.\nSearch for another book.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          )
+                        : Text('Error: ${snapshot.error}'),
                   );
                 } else {
                   return GridView(
@@ -88,7 +95,9 @@ class FindItems extends StatelessWidget {
                         .toList(),
                   );
                 }
-              }),
+              },
+            );
+          }),
         ),
       ],
     );
