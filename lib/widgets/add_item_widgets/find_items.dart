@@ -63,6 +63,8 @@ class FindItems extends StatelessWidget {
                           (data) => InkWell(
                             onTap: () {
                               aivc.sequenceCount++;
+                              sc.itemTitle.value =
+                                  data['volumeInfo']['title'].toString();
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
