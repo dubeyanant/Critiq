@@ -7,13 +7,8 @@ import 'package:http/http.dart' as http;
 class BooksAPIController extends GetxController {
   List<dynamic> apiDataList = [].obs;
   RxString itemName = ''.obs;
-  RxBool isSearched = false.obs;
 
   Future<List<dynamic>> fetchBooks() async {
-    while (!isSearched.value) {
-      await Future.delayed(const Duration(seconds: 1));
-    }
-
     String? apiKey = dotenv.env['GOOGLE_BOOKS_API_KEY'];
     String query = itemName.value;
 
