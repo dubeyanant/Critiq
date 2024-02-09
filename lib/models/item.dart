@@ -8,6 +8,8 @@ class Item {
   final double characterRating;
   final double endingRating;
   final double rating;
+  final bool type;
+  bool? isFavourite;
 
   Item({
     this.id,
@@ -19,19 +21,23 @@ class Item {
     required this.plotRating,
     required this.endingRating,
     required this.rating,
+    required this.type,
+    this.isFavourite,
   });
 
   // Below function is used to convert the map to the item object
   Item.fromMap(Map<String, dynamic> item)
       : id = item["id"],
-        title = item["title"],
+        title = item["title"].toString(),
         characterRating = item["characterRating"].toDouble(),
         endingRating = item["endingRating"].toDouble(),
         initialResponseRating = item["initialResponseRating"].toDouble(),
         plotRating = item["plotRating"].toDouble(),
         recommendationRating = item["recommendationRating"].toDouble(),
         rewatchabilityRating = item["rewatchabilityRating"].toDouble(),
-        rating = item["rating"].toDouble();
+        rating = item["rating"].toDouble(),
+        type = item["type"] == "true" ? true : false,
+        isFavourite = item["isFavourite"] == "true" ? true : false;
 
   // Below function is used to convert the item object to the map for the database
   Map<String, dynamic> toMap() {
@@ -45,6 +51,8 @@ class Item {
       'recommendationRating': recommendationRating,
       'rewatchabilityRating': rewatchabilityRating,
       'rating': rating,
+      'type': type,
+      'isFavourite': isFavourite,
     };
   }
 }
