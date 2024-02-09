@@ -69,12 +69,15 @@ class FindItems extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.network(data['volumeInfo']['imageLinks']
-                                    ['thumbnail']),
+                                Expanded(
+                                  child: Image.network(data['volumeInfo']
+                                      ['imageLinks']['thumbnail']),
+                                ),
                                 const SizedBox(height: 16),
                                 Text(
                                   data['volumeInfo']['title'].toString(),
                                   style: Theme.of(context).textTheme.bodyLarge,
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
