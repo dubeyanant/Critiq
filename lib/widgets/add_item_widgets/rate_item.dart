@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:critiq/screens/add_items.dart';
+import 'package:critiq/controllers/slider_controller.dart';
 
 class RateInitialResponse extends StatelessWidget {
   const RateInitialResponse({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final initialResponseSubHeadingScale = [
       "Very negative",
       "Somewhat negative",
@@ -56,6 +58,8 @@ class RateRecommendation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final recommendationSubHeadingScale = [
       "Highly discourage",
       "Discourage",
@@ -103,6 +107,8 @@ class RateRewatchability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final rewatchabilitySubHeadingScale = [
       "Definitely not going through it again",
       "Unlikely to go through it again",
@@ -150,6 +156,8 @@ class RatePlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final plotSubHeadingScale = [
       "Not engaged at all",
       "Somewhat engaged",
@@ -196,6 +204,8 @@ class RateCharacter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final characterSubHeadingScale = [
       "Uninteresting",
       "Slightly interesting",
@@ -243,6 +253,8 @@ class RateEnding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
+
     final endingSubHeadingScale = [
       "Worst",
       "Bad",
