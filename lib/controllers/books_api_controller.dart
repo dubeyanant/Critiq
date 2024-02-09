@@ -5,24 +5,33 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class BooksAPIController extends GetxController {
-  Future<void> fetchBooks() async {
+  List<dynamic> apiDataList = [].obs;
+  RxString itemName = ''.obs;
+  RxBool isSearched = false.obs;
+
+  Future<List<dynamic>> fetchBooks() async {
+    while (!isSearched.value) {
+      await Future.delayed(const Duration(seconds: 1));
+    }
+
     String? apiKey = dotenv.env['GOOGLE_BOOKS_API_KEY'];
-    const String query = 'Project Hail Mary'; // Example query
+    String query = itemName.value;
 
     var response = await http.get(
       Uri.parse(
-          'https://www.googleapis.com/books/v1/volumes?q=$query&key=$apiKey'),
+        'https://www.googleapis.com/books/v1/volumes?q=$query&key=$apiKey',
+      ),
     );
 
     if (response.statusCode == 200) {
       // Parse the JSON response
       final Map<String, dynamic> data = jsonDecode(response.body);
-      final List<dynamic> items = data['items'];
+      apiDataList = data['items'];
 
-      // Process the book data
-      for (var item in items) {
-        print(item['volumeInfo']['title']);
-      }
+      // for (var data in apiDataList) {
+      //   print(data['volumeInfo']['imageLinks']);
+      // }
+      return apiDataList;
     } else {
       throw Exception('Failed to load books');
     }

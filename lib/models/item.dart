@@ -28,7 +28,7 @@ class Item {
   // Below function is used to convert the map to the item object
   Item.fromMap(Map<String, dynamic> item)
       : id = item["id"],
-        title = item["title"],
+        title = item["title"].toString(),
         characterRating = item["characterRating"].toDouble(),
         endingRating = item["endingRating"].toDouble(),
         initialResponseRating = item["initialResponseRating"].toDouble(),

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:critiq/screens/add_items.dart';
 import 'package:critiq/screens/favourite.dart';
 import 'package:critiq/screens/all_items.dart';
-import 'package:critiq/screens/add_item.dart';
 import 'package:critiq/controllers/mode_controller.dart';
-import 'package:critiq/controllers/books_api_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,7 +14,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ModeController mc = Get.put(ModeController());
-    final BooksAPIController bc = Get.put(BooksAPIController());
 
     final MaterialStateProperty<Icon?> thumbIcon =
         MaterialStateProperty.resolveWith<Icon?>(
@@ -61,9 +59,9 @@ class HomeScreen extends StatelessWidget {
                 }
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: bc.fetchBooks,
+            const IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: null,
             ),
           ],
         ),
@@ -72,7 +70,7 @@ class HomeScreen extends StatelessWidget {
             HomeItem(
               itemIcon: Icons.add_circle,
               itemTitle: mc.switchBool.value ? 'Rate a movie' : 'Rate a book',
-              screenName: const AddItemScreen(),
+              screenName: const AddItemsScreen(),
             ),
             HomeItem(
               itemIcon: mc.switchBool.value
