@@ -11,13 +11,13 @@ import 'package:critiq/widgets/add_item_widgets/find_items.dart';
 import 'package:critiq/widgets/add_item_widgets/rate_item.dart';
 
 final AddItemViewController aivc = Get.put(AddItemViewController());
-final SliderController sc = Get.put(SliderController());
 
 class AddItemsScreen extends StatelessWidget {
   const AddItemsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final SliderController sc = Get.put(SliderController());
     final ModeController mc = Get.put(ModeController());
 
     final Map<int, Widget> sequence = {

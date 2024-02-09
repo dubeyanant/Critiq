@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:critiq/controllers/slider_controller.dart';
 import 'package:critiq/controllers/books_api_controller.dart';
 import 'package:critiq/screens/add_items.dart';
 
@@ -11,6 +12,7 @@ class FindItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BooksAPIController bc = Get.put(BooksAPIController());
+    final SliderController sc = Get.put(SliderController());
 
     return Column(
       children: [
