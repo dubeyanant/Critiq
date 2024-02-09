@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:critiq/controllers/books_api_controller.dart';
+import 'package:critiq/screens/add_items.dart';
 
 class FindItems extends StatelessWidget {
   const FindItems({super.key});
@@ -60,7 +61,9 @@ class FindItems extends StatelessWidget {
                             (data) => data['volumeInfo']['imageLinks'] != null)
                         .map(
                           (data) => InkWell(
-                            onTap: null,
+                            onTap: () {
+                              aivc.sequenceCount++;
+                            },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
