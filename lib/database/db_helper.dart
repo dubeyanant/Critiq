@@ -4,10 +4,10 @@ import 'package:path/path.dart';
 import 'package:critiq/models/item.dart';
 
 class DBHelper {
-  static const _databaseName = 'items.db';
-  static const _itemTable = 'item_table';
-  static const _databaseVersion = 1;
   static Database? _database;
+  static const _databaseName = 'items.db';
+  static const _databaseVersion = 1;
+  static const _itemTable = 'item_table';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -15,28 +15,6 @@ class DBHelper {
     // lazily instantiate the db the first time it is accessed
     _database = await _initDB();
     return _database!;
-  }
-
-  _initDB() async {
-    String path = join(await getDatabasesPath(), _databaseName);
-    return await openDatabase(
-      path,
-      version: _databaseVersion,
-      onCreate: _onCreate,
-      onUpgrade: _onUpgrade,
-    );
-  }
-
-  _onCreate(Database db, int version) async {
-    await db.execute('CREATE TABLE $_itemTable('
-        'id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, characterRating STRING, endingRating STRING, initialResponseRating STRING, plotRating STRING, recommendationRating STRING, rewatchabilityRating STRING, rating STRING, type STRING, isFavourite STRING'
-        ')');
-  }
-
-  _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 2) {
-      // await db.execute('ALTER TABLE $_itemTable ADD COLUMN isFavourite STRING');
-    }
   }
 
   Future<int> insertItem(Item item) async {
@@ -95,5 +73,27 @@ class DBHelper {
     Database? db = await openDatabase(path, version: _databaseVersion);
     await db.close();
     await deleteDatabase(path);
+  }
+
+  _initDB() async {
+    String path = join(await getDatabasesPath(), _databaseName);
+    return await openDatabase(
+      path,
+      version: _databaseVersion,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+    );
+  }
+
+  _onCreate(Database db, int version) async {
+    await db.execute('CREATE TABLE $_itemTable('
+        'id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, characterRating STRING, endingRating STRING, initialResponseRating STRING, plotRating STRING, recommendationRating STRING, rewatchabilityRating STRING, rating STRING, type STRING, isFavourite STRING'
+        ')');
+  }
+
+  _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      // await db.execute('ALTER TABLE $_itemTable ADD COLUMN isFavourite STRING');
+    }
   }
 }
