@@ -42,6 +42,7 @@ dependencies:
   flutter_slidable: ^3.0.1
   http: ^1.2.0
   flutter_dotenv: ^5.1.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +68,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
-  #   - images/a_dot_ham.jpeg
+    - assets/face-0.svg
+    - assets/face-1.svg
+    - assets/face-2.svg
+    - assets/face-3.svg
+    - assets/face-4.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -10,14 +10,14 @@ final ItemController ic = Get.put(ItemController());
 final ModeController mc = Get.put(ModeController());
 
 class SliderController extends GetxController {
-  Rx<String> itemTitle = "".obs;
-  Rx<double> initialResponseScale = 0.0.obs;
-  Rx<double> recommendationScale = 0.0.obs;
-  Rx<double> rewatchabilityScale = 0.0.obs;
-  Rx<double> plotScale = 0.0.obs;
   Rx<double> characterScale = 0.0.obs;
   Rx<double> endingScale = 0.0.obs;
+  Rx<double> initialResponseScale = 0.0.obs;
+  Rx<String> itemTitle = "".obs;
+  Rx<double> plotScale = 0.0.obs;
   Rx<double> rating = 0.5.obs;
+  Rx<double> recommendationScale = 0.0.obs;
+  Rx<double> rewatchabilityScale = 0.0.obs;
 
   /// Below function is used to calculate the rating of the book or movie
   void calculateRating() async {
@@ -28,7 +28,7 @@ class SliderController extends GetxController {
             characterScale.value +
             endingScale.value +
             5) /
-        10;
+        5;
 
     /// Below function is used for rounding the rating value to nearest .5
     rating.value = ((rating.value * 2).round() / 2);

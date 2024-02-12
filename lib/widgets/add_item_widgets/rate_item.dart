@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
 
 class RateInitialResponse extends StatelessWidget {
@@ -10,6 +12,7 @@ class RateInitialResponse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
+    final ModeController mc = Get.put(ModeController());
 
     final initialResponseSubHeadingScale = [
       "Very negative",
@@ -25,23 +28,31 @@ class RateInitialResponse extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.initialResponseScale.value.toInt() + 1).toString(),
+            mc.switchBool.value
+                ? 'What was your initial response after finishing this movie?'
+                : 'What was your initial response after finishing this book?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.initialResponseScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
           Text(
             initialResponseSubHeadingScale[
-                (sc.initialResponseScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                sc.initialResponseScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
           Slider(
             value: sc.initialResponseScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.initialResponseScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.initialResponseScale.value = value;
@@ -74,23 +85,30 @@ class RateRecommendation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.recommendationScale.value.toInt() + 1).toString(),
+            mc.switchBool.value
+                ? 'How likely are you to recommend this movie to a friend?'
+                : 'How likely are you to recommend this book to a friend?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
-          ),
-          Text(
-            recommendationSubHeadingScale[
-                (sc.recommendationScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.recommendationScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
+          ),
+          Text(
+            recommendationSubHeadingScale[sc.recommendationScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.recommendationScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.recommendationScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.recommendationScale.value = value;
@@ -123,23 +141,28 @@ class RateRewatchability extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.rewatchabilityScale.value.toInt() + 1).toString(),
+            'Would you consider re-watching this movie in the future?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
-          ),
-          Text(
-            rewatchabilitySubHeadingScale[
-                (sc.rewatchabilityScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.rewatchabilityScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
+          ),
+          Text(
+            rewatchabilitySubHeadingScale[sc.rewatchabilityScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.rewatchabilityScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.rewatchabilityScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.rewatchabilityScale.value = value;
@@ -172,22 +195,30 @@ class RatePlot extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.plotScale.value.toInt() + 1).toString(),
+            mc.switchBool.value
+                ? 'How engaging did you find the storyline of this movie?'
+                : 'How engaging did you find the storyline of this book?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
-          ),
-          Text(
-            plotSubHeadingScale[(sc.plotScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.plotScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
+          ),
+          Text(
+            plotSubHeadingScale[sc.plotScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.plotScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.plotScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.plotScale.value = value;
@@ -220,23 +251,28 @@ class RateCharacter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.characterScale.value.toInt() + 1).toString(),
+            'How interesting were the characters\nin this book?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
-          ),
-          Text(
-            characterSubHeadingScale[
-                (sc.characterScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.characterScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
+          ),
+          Text(
+            characterSubHeadingScale[sc.characterScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.characterScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.characterScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.characterScale.value = value;
@@ -269,22 +305,30 @@ class RateEnding extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            (sc.endingScale.value.toInt() + 1).toString(),
+            mc.switchBool.value
+                ? 'How satisfying did you find the ending to this movie?'
+                : 'How satisfying did you find the ending to this book?',
             style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
-          ),
-          Text(
-            endingSubHeadingScale[(sc.endingScale.value.toInt() / 2).floor()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 48),
+          SvgPicture.asset(
+            'assets/face-${sc.endingScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
+          ),
+          Text(
+            endingSubHeadingScale[sc.endingScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.endingScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
-            max: 9,
-            divisions: 9,
+            max: 4,
+            divisions: 4,
             label: (sc.endingScale.value.round() + 1).toString(),
             onChanged: (double value) {
               sc.endingScale.value = value;

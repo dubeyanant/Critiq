@@ -74,8 +74,8 @@ class HomeScreen extends StatelessWidget {
             ),
             HomeItem(
               itemIcon: mc.switchBool.value
-                  ? Icons.local_movies
-                  : Icons.library_books,
+                  ? Icons.movie_filter_sharp
+                  : Icons.menu_book_sharp,
               itemTitle: mc.switchBool.value ? 'All movies' : 'All books',
               screenName: const AllItemsScreen(),
             ),
@@ -100,9 +100,9 @@ class HomeItem extends StatelessWidget {
     required this.screenName,
   });
 
-  final Widget screenName;
   final IconData itemIcon;
   final String itemTitle;
+  final Widget screenName;
 
   @override
   Widget build(BuildContext context) {
