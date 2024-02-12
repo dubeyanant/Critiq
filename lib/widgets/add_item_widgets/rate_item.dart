@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
@@ -35,12 +36,18 @@ class RateInitialResponse extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.initialResponseScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.initialResponseScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            initialResponseSubHeadingScale[
+                sc.initialResponseScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.initialResponseScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -50,13 +57,6 @@ class RateInitialResponse extends StatelessWidget {
             onChanged: (double value) {
               sc.initialResponseScale.value = value;
             },
-          ),
-          Text(
-            initialResponseSubHeadingScale[
-                sc.initialResponseScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -93,12 +93,17 @@ class RateRecommendation extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.recommendationScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.recommendationScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            recommendationSubHeadingScale[sc.recommendationScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.recommendationScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -108,12 +113,6 @@ class RateRecommendation extends StatelessWidget {
             onChanged: (double value) {
               sc.recommendationScale.value = value;
             },
-          ),
-          Text(
-            recommendationSubHeadingScale[sc.recommendationScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -148,12 +147,17 @@ class RateRewatchability extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.rewatchabilityScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.rewatchabilityScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            rewatchabilitySubHeadingScale[sc.rewatchabilityScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.rewatchabilityScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -163,12 +167,6 @@ class RateRewatchability extends StatelessWidget {
             onChanged: (double value) {
               sc.rewatchabilityScale.value = value;
             },
-          ),
-          Text(
-            rewatchabilitySubHeadingScale[sc.rewatchabilityScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -205,12 +203,17 @@ class RatePlot extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.plotScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.plotScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            plotSubHeadingScale[sc.plotScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.plotScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -220,12 +223,6 @@ class RatePlot extends StatelessWidget {
             onChanged: (double value) {
               sc.plotScale.value = value;
             },
-          ),
-          Text(
-            plotSubHeadingScale[sc.plotScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -260,12 +257,17 @@ class RateCharacter extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.characterScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.characterScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            characterSubHeadingScale[sc.characterScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.characterScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -275,12 +277,6 @@ class RateCharacter extends StatelessWidget {
             onChanged: (double value) {
               sc.characterScale.value = value;
             },
-          ),
-          Text(
-            characterSubHeadingScale[sc.characterScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -317,12 +313,17 @@ class RateEnding extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
-          Text(
-            (sc.endingScale.value.toInt() + 1).toString(),
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 72),
+          SvgPicture.asset(
+            'assets/face-${sc.endingScale.value.toInt()}.svg',
+            width: 120,
+            height: 120,
           ),
-          const SizedBox(height: 16),
+          Text(
+            endingSubHeadingScale[sc.endingScale.value.toInt()],
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
           Slider(
             value: sc.endingScale.value,
             inactiveColor: Theme.of(context).colorScheme.inversePrimary,
@@ -332,12 +333,6 @@ class RateEnding extends StatelessWidget {
             onChanged: (double value) {
               sc.endingScale.value = value;
             },
-          ),
-          Text(
-            endingSubHeadingScale[sc.endingScale.value.toInt()],
-            style:
-                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
