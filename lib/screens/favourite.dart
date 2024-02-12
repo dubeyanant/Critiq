@@ -103,6 +103,8 @@ class FavouriteScreen extends StatelessWidget {
                           Text(
                             ic.itemList[index].title.toString(),
                             style: Theme.of(context).textTheme.titleMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const Spacer(),
                           Text(

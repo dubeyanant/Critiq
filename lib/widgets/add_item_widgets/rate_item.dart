@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
 
 class RateInitialResponse extends StatelessWidget {
@@ -12,7 +11,6 @@ class RateInitialResponse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
-    final ModeController mc = Get.put(ModeController());
 
     final initialResponseSubHeadingScale = [
       "Very negative",
@@ -28,12 +26,12 @@ class RateInitialResponse extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            mc.switchBool.value
-                ? 'What was your initial response after finishing this movie?'
-                : 'What was your initial response after finishing this book?',
+            'What was your initial response after finishing ${sc.itemTitle.value}?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
@@ -85,12 +83,12 @@ class RateRecommendation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            mc.switchBool.value
-                ? 'How likely are you to recommend this movie to a friend?'
-                : 'How likely are you to recommend this book to a friend?',
+            'How likely are you to recommend ${sc.itemTitle.value} to a friend?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
@@ -141,10 +139,12 @@ class RateRewatchability extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Would you consider re-watching this movie in the future?',
+            'Would you consider re-watching ${sc.itemTitle.value} in the future?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
@@ -195,12 +195,12 @@ class RatePlot extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            mc.switchBool.value
-                ? 'How engaging did you find the storyline of this movie?'
-                : 'How engaging did you find the storyline of this book?',
+            'How engaging did you find the storyline of ${sc.itemTitle.value}?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
@@ -251,10 +251,12 @@ class RateCharacter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'How interesting were the characters\nin this book?',
+            'How interesting were the characters in ${sc.itemTitle.value}?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
@@ -305,12 +307,12 @@ class RateEnding extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            mc.switchBool.value
-                ? 'How satisfying did you find the ending to this movie?'
-                : 'How satisfying did you find the ending to this book?',
+            'How satisfying did you find the ending to ${sc.itemTitle.value}?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 48),
           SvgPicture.asset(
