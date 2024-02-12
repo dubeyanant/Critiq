@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
-import 'package:critiq/controllers/books_api_controller.dart';
+import 'package:critiq/controllers/api_controller.dart';
 import 'package:critiq/screens/add_items.dart';
 
 class FindItems extends StatelessWidget {
@@ -13,7 +13,7 @@ class FindItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BooksAPIController bc = Get.put(BooksAPIController());
+    final APIController bc = Get.put(APIController());
     final SliderController sc = Get.put(SliderController());
     final ModeController mc = Get.put(ModeController());
     Timer? timer;
