@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
 
 class RateInitialResponse extends StatelessWidget {
@@ -10,6 +11,7 @@ class RateInitialResponse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SliderController sc = Get.put(SliderController());
+    final ModeController mc = Get.put(ModeController());
 
     final initialResponseSubHeadingScale = [
       "Very negative",
@@ -25,7 +27,9 @@ class RateInitialResponse extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'What was your initial response after finishing this?',
+            mc.switchBool.value
+                ? 'What was your initial response after finishing this movie?'
+                : 'What was your initial response after finishing this book?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
@@ -81,7 +85,9 @@ class RateRecommendation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'How likely are you to recommend this to a friend?',
+            mc.switchBool.value
+                ? 'How likely are you to recommend this movie to a friend?'
+                : 'How likely are you to recommend this book to a friend?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
@@ -191,7 +197,9 @@ class RatePlot extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'How engaging did you find the storyline?',
+            mc.switchBool.value
+                ? 'How engaging did you find the storyline of this movie?'
+                : 'How engaging did you find the storyline of this book?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
@@ -246,7 +254,7 @@ class RateCharacter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'How were the characters\nin this book?',
+            'How interesting were the characters\nin this book?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,
@@ -301,7 +309,9 @@ class RateEnding extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'How satisfying or unsatisfying did you find the ending?',
+            mc.switchBool.value
+                ? 'How satisfying did you find the ending to this movie?'
+                : 'How satisfying did you find the ending to this book?',
             style:
                 Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             textAlign: TextAlign.center,

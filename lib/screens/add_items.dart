@@ -32,16 +32,6 @@ class AddItemsScreen extends StatelessWidget {
       6: const FinalRating(),
     };
 
-    final List<String> addItemScreenTitle = [
-      'Find Your Book',
-      'Rate Initial Response',
-      'Rate Your Recommendation',
-      mc.switchBool.value ? 'Rate Rewatchability' : 'Rate Character',
-      'Rate Plot',
-      'Rate Ending',
-      'Your Rating',
-    ];
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: SafeArea(
@@ -52,7 +42,7 @@ class AddItemsScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 32),
                 Text(
-                  addItemScreenTitle[aivc.sequenceCount.value],
+                  mc.switchBool.value ? 'Rate a Movie' : 'Rate a Book',
                   style: GoogleFonts.getFont('Pacifico').copyWith(fontSize: 24),
                 ),
                 const SizedBox(height: 32),
@@ -90,7 +80,7 @@ class AddItemsScreen extends StatelessWidget {
                             ),
                           )
                         : const SizedBox(),
-                    aivc.sequenceCount.value < addItemScreenTitle.length - 1 &&
+                    aivc.sequenceCount.value < sequence.length - 1 &&
                             aivc.sequenceCount.value != 0
                         ? IconButton.outlined(
                             padding: const EdgeInsets.all(12),
@@ -102,13 +92,11 @@ class AddItemsScreen extends StatelessWidget {
                           )
                         : const SizedBox(),
                     aivc.sequenceCount.value > 0 &&
-                            aivc.sequenceCount.value <
-                                addItemScreenTitle.length - 1
+                            aivc.sequenceCount.value < sequence.length - 1
                         ? const SizedBox(width: 40)
                         : const SizedBox(),
                     aivc.sequenceCount.value > 0 &&
-                            aivc.sequenceCount.value <
-                                addItemScreenTitle.length - 2
+                            aivc.sequenceCount.value < sequence.length - 2
                         ? IconButton.filled(
                             padding: const EdgeInsets.all(12),
                             iconSize: 36,
@@ -118,7 +106,7 @@ class AddItemsScreen extends StatelessWidget {
                             icon: const Icon(Icons.arrow_forward),
                           )
                         : const SizedBox(),
-                    aivc.sequenceCount.value == addItemScreenTitle.length - 2
+                    aivc.sequenceCount.value == sequence.length - 2
                         ? FilledButton.icon(
                             icon: const Icon(Icons.arrow_forward),
                             onPressed: () {
@@ -139,7 +127,7 @@ class AddItemsScreen extends StatelessWidget {
                             ),
                           )
                         : const SizedBox(),
-                    aivc.sequenceCount.value == addItemScreenTitle.length - 1
+                    aivc.sequenceCount.value == sequence.length - 1
                         ? FilledButton.icon(
                             icon: const Icon(Icons.check),
                             onPressed: () {
