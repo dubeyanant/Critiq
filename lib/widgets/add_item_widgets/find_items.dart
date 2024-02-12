@@ -61,7 +61,9 @@ class FindItems extends StatelessWidget {
                   debugPrint('Error: ${snapshot.error}');
                   return Center(
                     child: Text(
-                      'Error occurred.\nSearch for another book.',
+                      mc.switchBool.value
+                          ? 'Error occurred.\nSearch for another movie.'
+                          : 'Error occurred.\nSearch for another book.',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
@@ -105,6 +107,8 @@ class FindItems extends StatelessWidget {
                                       : data['volumeInfo']['title'].toString(),
                                   style: Theme.of(context).textTheme.bodyLarge,
                                   textAlign: TextAlign.center,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
