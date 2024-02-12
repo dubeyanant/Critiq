@@ -1,16 +1,4 @@
 class Item {
-  int? id;
-  final String title;
-  final double initialResponseRating;
-  final double recommendationRating;
-  final double rewatchabilityRating;
-  final double plotRating;
-  final double characterRating;
-  final double endingRating;
-  final double rating;
-  final bool type;
-  bool? isFavourite;
-
   Item({
     this.id,
     required this.title,
@@ -38,6 +26,18 @@ class Item {
         rating = item["rating"].toDouble(),
         type = item["type"] == "true" ? true : false,
         isFavourite = item["isFavourite"] == "true" ? true : false;
+
+  final double characterRating;
+  final double endingRating;
+  int? id;
+  final double initialResponseRating;
+  bool? isFavourite;
+  final double plotRating;
+  final double rating;
+  final double recommendationRating;
+  final double rewatchabilityRating;
+  final String title;
+  final bool type;
 
   // Below function is used to convert the item object to the map for the database
   Map<String, dynamic> toMap() {
