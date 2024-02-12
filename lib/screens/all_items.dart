@@ -44,6 +44,19 @@ class AllItemsScreen extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
                   child: Slidable(
                     key: const ValueKey(0),
+                    startActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          borderRadius: BorderRadius.circular(8),
+                          onPressed: ((context) =>
+                              ic.deleteItem(ic.itemList[index].id)),
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                        ),
+                      ],
+                    ),
                     endActionPane: ActionPane(
                       motion: const ScrollMotion(),
                       children: [
@@ -70,11 +83,11 @@ class AllItemsScreen extends StatelessWidget {
                         ),
                         SlidableAction(
                           borderRadius: BorderRadius.circular(8),
-                          onPressed: ((context) =>
-                              ic.deleteItem(ic.itemList[index].id)),
-                          backgroundColor: Colors.red,
+                          onPressed: null,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                           foregroundColor: Colors.white,
-                          icon: Icons.delete,
+                          icon: Icons.share,
                         ),
                       ],
                     ),
