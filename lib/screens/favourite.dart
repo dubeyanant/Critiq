@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:critiq/controllers/item_controller.dart';
 import 'package:critiq/controllers/mode_controller.dart';
@@ -79,7 +80,16 @@ class FavouriteScreen extends StatelessWidget {
                         ),
                         SlidableAction(
                           borderRadius: BorderRadius.circular(8),
-                          onPressed: null,
+                          onPressed: ((context) {
+                            String readWatch =
+                                mc.switchBool.value ? 'watched' : 'read';
+                            String emoji = mc.switchBool.value ? '🎬' : '📚';
+                            String type = mc.switchBool.value
+                                ? "Re-watchability: ${(ic.itemList[index].rewatchabilityRating + 1).toString()}⭐"
+                                : "Character: ${(ic.itemList[index].characterRating + 1).toString()}⭐";
+                            Share.share(
+                                'Hello everyone👋\n\nI recently $readWatch ${ic.itemList[index].title.toString()}$emoji and here is my rating:\n\nInitial response: ${(ic.itemList[index].initialResponseRating + 1).toString()}⭐\nRecommendation: ${(ic.itemList[index].recommendationRating + 1).toString()}⭐\n$type\nPlot: ${(ic.itemList[index].plotRating + 1).toString()}⭐\nEnding: ${(ic.itemList[index].endingRating + 1).toString()}⭐\n\nOverall rating: ${ic.itemList[index].rating.toString()}🌟\n\nShared from Critiq app');
+                          }),
                           backgroundColor:
                               Theme.of(context).colorScheme.secondary,
                           foregroundColor: Colors.white,
