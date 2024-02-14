@@ -47,7 +47,7 @@ class AddItemsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Expanded(
-                  child: sequence[aivc.sequenceCount]!,
+                  child: sequence[aivc.sequenceCount.value]!,
                 ),
                 const SizedBox(height: 32),
                 Row(
