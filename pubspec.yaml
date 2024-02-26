@@ -75,6 +75,11 @@ flutter:
     - assets/face-2.svg
     - assets/face-3.svg
     - assets/face-4.svg
+    - assets/rating.jpg
+    - assets/all_books.jpg
+    - assets/all_movies.jpg
+    - assets/fav_books.jpg
+    - assets/fav_movies.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

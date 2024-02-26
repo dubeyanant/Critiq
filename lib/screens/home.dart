@@ -65,70 +65,137 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Column(
-          children: <Widget>[
-            HomeItem(
-              itemIcon: Icons.add_circle,
-              itemTitle: mc.switchBool.value ? 'Rate a movie' : 'Rate a book',
-              screenName: const AddItemsScreen(),
-            ),
-            HomeItem(
-              itemIcon: mc.switchBool.value
-                  ? Icons.movie_filter_sharp
-                  : Icons.menu_book_sharp,
-              itemTitle: mc.switchBool.value ? 'All movies' : 'All books',
-              screenName: const AllItemsScreen(),
-            ),
-            HomeItem(
-              itemIcon: Icons.star,
-              itemTitle:
-                  mc.switchBool.value ? 'Favourite movies' : 'Favourite books',
-              screenName: const FavouriteScreen(),
-            ),
-          ],
+        body: Container(
+          margin: const EdgeInsets.all(16),
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () => Get.to(() => const AddItemsScreen()),
+                child: Container(
+                  height: 192,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  alignment: Alignment.bottomLeft,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                    image: const DecorationImage(
+                      image: AssetImage('assets/rating.jpg'),
+                      opacity: 0.5,
+                      fit: BoxFit.cover,
+                    ),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black.withOpacity(0),
+                        Colors.black,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0, 0.8],
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.add_circle,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        mc.switchBool.value ? 'Rate a Movie' : 'Rate a Book',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          height: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: <Widget>[
+                  SubItem(
+                    itemTitle: mc.switchBool.value ? 'All Movies' : 'All Books',
+                    screenName: const AllItemsScreen(),
+                    bgImage: mc.switchBool.value
+                        ? 'assets/all_movies.jpg'
+                        : 'assets/all_books.jpg',
+                  ),
+                  const SizedBox(width: 16),
+                  SubItem(
+                    itemTitle: mc.switchBool.value
+                        ? 'Favourite Movies'
+                        : 'Favourite Books',
+                    screenName: const FavouriteScreen(),
+                    bgImage: mc.switchBool.value
+                        ? 'assets/fav_movies.jpg'
+                        : 'assets/fav_books.jpg',
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class HomeItem extends StatelessWidget {
-  const HomeItem({
+class SubItem extends StatelessWidget {
+  const SubItem({
     super.key,
-    required this.itemIcon,
     required this.itemTitle,
     required this.screenName,
+    required this.bgImage,
   });
 
-  final IconData itemIcon;
   final String itemTitle;
   final Widget screenName;
+  final String bgImage;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.to(() => screenName),
-      child: Container(
-        alignment: Alignment.centerLeft,
-        width: double.maxFinite,
-        height: 64,
-        margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
-        padding: const EdgeInsets.only(left: 16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(8),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(itemIcon, size: 24),
-            const SizedBox(width: 16),
-            Text(
-              itemTitle,
-              style: const TextStyle(fontSize: 16),
+    return Expanded(
+      flex: 1,
+      child: GestureDetector(
+        onTap: () => Get.to(() => screenName),
+        child: AspectRatio(
+          aspectRatio: 1 / 1,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            alignment: Alignment.bottomLeft,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
+              image: DecorationImage(
+                image: AssetImage(bgImage),
+                opacity: 0.5,
+                fit: BoxFit.cover,
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0),
+                  Colors.black,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [0, 0.8],
+              ),
             ),
-          ],
+            child: Text(
+              itemTitle,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                height: 1.1,
+              ),
+            ),
+          ),
         ),
       ),
     );
