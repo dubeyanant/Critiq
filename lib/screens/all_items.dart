@@ -30,7 +30,7 @@ class AllItemsScreen extends StatelessWidget {
                 'deleted successfully!',
                 dismissDirection: DismissDirection.horizontal,
                 snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                backgroundColor: Theme.of(context).colorScheme.errorContainer,
                 margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
               );
               ic.deleteCategory(mc.switchBool.toString());

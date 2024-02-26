@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:critiq/database/db_backup.dart';
 import 'package:critiq/controllers/item_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -65,15 +66,15 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             SubButton(
-              buttonText: 'Backup Data',
+              buttonText: 'Export Data',
               buttonColor: const Color.fromARGB(255, 231, 214, 246),
-              buttonFunction: () {},
+              buttonFunction: () => DBBackup().dbExportToDownloadFolder(),
             ),
             const SizedBox(height: 16),
             SubButton(
-              buttonText: 'Load Data',
+              buttonText: 'Import Data',
               buttonColor: const Color.fromARGB(255, 231, 214, 246),
-              buttonFunction: () {},
+              buttonFunction: () => DBBackup().importDataBaseFile(),
             ),
             const SizedBox(height: 16),
             SubButton(
