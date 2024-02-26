@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -73,6 +75,12 @@ class DBHelper {
     Database? db = await openDatabase(path, version: _databaseVersion);
     await db.close();
     await deleteDatabase(path);
+  }
+
+  Future<File> dbExport() async {
+    final dbPath = await getDatabasesPath();
+    var file = File(dbPath);
+    return file;
   }
 
   _initDB() async {
