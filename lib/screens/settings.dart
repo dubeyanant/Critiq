@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:critiq/database/db_backup.dart';
 import 'package:critiq/controllers/item_controller.dart';
+import 'package:critiq/controllers/mode_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -52,16 +53,38 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   menuChildren: [
                     MenuItemButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await prefs.setBool('storedMode', true);
+                        Get.snackbar(
+                          'Default mode',
+                          'set to movies!',
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green[300],
+                          margin: const EdgeInsets.only(
+                              bottom: 8, left: 8, right: 8),
+                        );
+                      },
                       child: const MenuAcceleratorLabel('Movies'),
                     ),
                     MenuItemButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await prefs.setBool('storedMode', false);
+                        Get.snackbar(
+                          'Default mode',
+                          'set to books!',
+                          dismissDirection: DismissDirection.horizontal,
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green[300],
+                          margin: const EdgeInsets.only(
+                              bottom: 8, left: 8, right: 8),
+                        );
+                      },
                       child: const MenuAcceleratorLabel('Books'),
                     ),
                   ],
-                  child: const MenuAcceleratorLabel('Books'),
-                )
+                  child: const MenuAcceleratorLabel('Choose'),
+                ),
               ],
             ),
             const SizedBox(height: 16),

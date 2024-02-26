@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:critiq/screens/home.dart';
 import 'package:critiq/controllers/mode_controller.dart';
@@ -20,9 +21,13 @@ var kMovieLightColorScheme = ColorScheme.fromSeed(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+
   await GetStorage.init();
   await DBHelper().database;
+
   await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
