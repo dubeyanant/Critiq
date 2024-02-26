@@ -49,7 +49,13 @@ class DBBackup {
     String? backupFileName = result?.names[0].toString();
     RegExp regex = RegExp(r'\.db$');
 
-    if (regex.hasMatch(backupFileName!)) {
+    if (backupFileName == null) {
+      Get.snackbar('Data import', 'failed!',
+          dismissDirection: DismissDirection.horizontal,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red[300],
+          margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8));
+    } else if (regex.hasMatch(backupFileName)) {
       String recoveryPath = "${dbPath.path}/${DBHelper.databaseName}";
       String newPath = "${result!.files.single.path}";
 
@@ -58,7 +64,7 @@ class DBBackup {
 
       Get.snackbar(
         'Data import',
-        'successful!',
+        'aborted!',
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green[300],
