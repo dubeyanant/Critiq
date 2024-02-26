@@ -138,9 +138,7 @@ class AddItemsScreen extends StatelessWidget {
                                 'added successfully!',
                                 dismissDirection: DismissDirection.horizontal,
                                 snackPosition: SnackPosition.BOTTOM,
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
+                                backgroundColor: Colors.green[300],
                                 margin: const EdgeInsets.only(
                                     bottom: 8, left: 8, right: 8),
                               );

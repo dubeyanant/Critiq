@@ -9,15 +9,18 @@ import 'package:file_picker/file_picker.dart';
 import 'package:critiq/database/db_helper.dart';
 
 class DBBackup {
+  String exportBackupFileName = 'critiqBackup.db';
+
   dbExportToDownloadFolder() async {
     File result = await DBHelper().dbExport();
     debugPrint("lllllllllllllllllll ${result.absolute.path}");
 
     Directory documentsDirectory = Directory("storage/emulated/0/Download/");
 
-    String newPath = join('${documentsDirectory.absolute.path}critiqBackup.db');
+    String newPath =
+        join('${documentsDirectory.absolute.path}$exportBackupFileName');
 
-    File b = File("${result.path}/items.db");
+    File b = File("${result.path}/${DBHelper.databaseName}");
 
     requestPermission()
         .then((value) => b.copy(newPath))
@@ -39,25 +42,38 @@ class DBBackup {
   importDataBaseFile() async {
     File dbPath = await DBHelper().dbExport();
 
-    bool? clear = await FilePicker.platform.clearTemporaryFiles();
-    debugPrint(clear.toString());
+    await FilePicker.platform.clearTemporaryFiles();
 
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    String recoveryPath = "${dbPath.path}/items.db";
-    String newPath = "${result!.files.single.path}";
+    String? backupFileName = result?.names[0].toString();
+    RegExp regex = RegExp(r'\.db$');
 
-    File backupFile = File(newPath);
-    backupFile.copy(recoveryPath);
+    if (regex.hasMatch(backupFileName!)) {
+      String recoveryPath = "${dbPath.path}/${DBHelper.databaseName}";
+      String newPath = "${result!.files.single.path}";
 
-    Get.snackbar(
-      'Data import',
-      'successful!',
-      dismissDirection: DismissDirection.horizontal,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green[300],
-      margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-    );
+      File backupFile = File(newPath);
+      backupFile.copy(recoveryPath);
+
+      Get.snackbar(
+        'Data import',
+        'successful!',
+        dismissDirection: DismissDirection.horizontal,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green[300],
+        margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+      );
+    } else {
+      Get.snackbar(
+        'Data import',
+        'failed!',
+        dismissDirection: DismissDirection.horizontal,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red[300],
+        margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+      );
+    }
   }
 
   Future<void> requestPermission() async {
