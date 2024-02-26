@@ -122,6 +122,7 @@ class AllItemsScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          const SizedBox(width: 8),
                           Text(
                             ic.itemList[index].rating.toString(),
                           ),
