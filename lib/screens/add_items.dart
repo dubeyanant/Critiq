@@ -133,6 +133,17 @@ class AddItemsScreen extends StatelessWidget {
                             onPressed: () {
                               Get.back();
                               aivc.sequenceCount.value = 0;
+                              Get.snackbar(
+                                sc.itemTitle.value,
+                                'added successfully!',
+                                dismissDirection: DismissDirection.horizontal,
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
+                                margin: const EdgeInsets.only(
+                                    bottom: 8, left: 8, right: 8),
+                              );
                             },
                             style: const ButtonStyle(
                                 padding: MaterialStatePropertyAll(

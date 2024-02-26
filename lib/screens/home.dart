@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:critiq/screens/settings.dart';
 import 'package:critiq/screens/add_items.dart';
 import 'package:critiq/screens/favourite.dart';
 import 'package:critiq/screens/all_items.dart';
@@ -59,9 +60,9 @@ class HomeScreen extends StatelessWidget {
                 }
               },
             ),
-            const IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: null,
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => Get.to(() => const SettingsScreen()),
             ),
           ],
         ),
