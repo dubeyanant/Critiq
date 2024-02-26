@@ -23,18 +23,24 @@ class AllItemsScreen extends StatelessWidget {
           mc.switchBool.value ? 'All Movies' : 'All Books',
         ),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.delete_forever),
+          TextButton.icon(
             onPressed: () {
-              // Get.snackbar(
-              //   'All Data',
-              //   'deleted successfully',
-              //   dismissDirection: DismissDirection.horizontal,
-              // );
+              Get.snackbar(
+                mc.switchBool.value ? 'All Movies Data' : 'All Books Data',
+                'deleted successfully!',
+                dismissDirection: DismissDirection.horizontal,
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+              );
               ic.deleteCategory(mc.switchBool.toString());
             },
-            tooltip: 'Delete All Items',
-          ),
+            icon: const Icon(Icons.delete_forever),
+            label: Text(
+              mc.switchBool.value ? 'Delete\nAll Movies' : 'Delete\nAll Books',
+              style: const TextStyle(fontSize: 12),
+            ),
+          )
         ],
       ),
       body: Obx(
@@ -122,6 +128,7 @@ class AllItemsScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          const SizedBox(width: 8),
                           Text(
                             ic.itemList[index].rating.toString(),
                           ),

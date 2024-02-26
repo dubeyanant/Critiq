@@ -47,7 +47,7 @@ class AddItemsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Expanded(
-                  child: sequence[aivc.sequenceCount]!,
+                  child: sequence[aivc.sequenceCount.value]!,
                 ),
                 const SizedBox(height: 32),
                 Row(
@@ -133,6 +133,15 @@ class AddItemsScreen extends StatelessWidget {
                             onPressed: () {
                               Get.back();
                               aivc.sequenceCount.value = 0;
+                              Get.snackbar(
+                                sc.itemTitle.value,
+                                'added successfully!',
+                                dismissDirection: DismissDirection.horizontal,
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.green[300],
+                                margin: const EdgeInsets.only(
+                                    bottom: 8, left: 8, right: 8),
+                              );
                             },
                             style: const ButtonStyle(
                                 padding: MaterialStatePropertyAll(

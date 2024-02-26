@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:critiq/controllers/mode_controller.dart';
 import 'package:critiq/controllers/slider_controller.dart';
@@ -54,8 +55,13 @@ class FindItems extends StatelessWidget {
                   );
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: LoadingAnimationWidget.twistingDots(
+                      leftDotColor: Theme.of(context).colorScheme.primary,
+                      rightDotColor:
+                          Theme.of(context).colorScheme.inversePrimary,
+                      size: 48,
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   debugPrint('Error: ${snapshot.error}');

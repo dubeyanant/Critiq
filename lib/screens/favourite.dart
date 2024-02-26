@@ -22,15 +22,6 @@ class FavouriteScreen extends StatelessWidget {
         title: Text(
           mc.switchBool.value ? 'Favourite Movies' : 'Favourite Books',
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.delete_forever),
-            onPressed: () {
-              ic.deleteFavourite(mc.switchBool.toString(), true);
-            },
-            tooltip: 'Delete All Favourites',
-          ),
-        ],
       ),
       body: Obx(
         () => ListView.builder(
