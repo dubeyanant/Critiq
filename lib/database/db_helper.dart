@@ -7,7 +7,7 @@ import 'package:critiq/models/item.dart';
 
 class DBHelper {
   static Database? _database;
-  static const _databaseName = 'items.db';
+  static const databaseName = 'items.db';
   static const _databaseVersion = 1;
   static const _itemTable = 'item_table';
 
@@ -71,7 +71,7 @@ class DBHelper {
   }
 
   Future<void> dropTableAndDatabase() async {
-    String path = join(await getDatabasesPath(), _databaseName);
+    String path = join(await getDatabasesPath(), databaseName);
     Database? db = await openDatabase(path, version: _databaseVersion);
     await db.close();
     await deleteDatabase(path);
@@ -84,7 +84,7 @@ class DBHelper {
   }
 
   _initDB() async {
-    String path = join(await getDatabasesPath(), _databaseName);
+    String path = join(await getDatabasesPath(), databaseName);
     return await openDatabase(
       path,
       version: _databaseVersion,
