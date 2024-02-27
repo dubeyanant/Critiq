@@ -9,7 +9,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:critiq/database/db_helper.dart';
 
 class DBBackup {
-  String exportBackupFileName = 'critiqBackup.db';
+  String exportBackupFileName = 'backup.ctq';
 
   dbExportToDownloadFolder() async {
     File result = await DBHelper().dbExport();
@@ -28,8 +28,8 @@ class DBBackup {
         .catchError((err) => debugPrint('Err: $err'))
         .then((value) {
       Get.snackbar(
-        'Data backup',
-        'successful!',
+        'Data backup successful!',
+        'backup.ctq file saved in Downloads folder.',
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green[300],
@@ -47,10 +47,10 @@ class DBBackup {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     String? backupFileName = result?.names[0].toString();
-    RegExp regex = RegExp(r'\.db$');
+    RegExp regex = RegExp(r'\.ctq$');
 
     if (backupFileName == null) {
-      Get.snackbar('Data import', 'failed!',
+      Get.snackbar('Data import', 'aborted!',
           dismissDirection: DismissDirection.horizontal,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red[300],
@@ -64,7 +64,7 @@ class DBBackup {
 
       Get.snackbar(
         'Data import',
-        'aborted!',
+        'success!',
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green[300],
