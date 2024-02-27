@@ -84,6 +84,7 @@ flutter:
     - assets/all_movies.jpg
     - assets/fav_books.jpg
     - assets/fav_movies.jpg
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
