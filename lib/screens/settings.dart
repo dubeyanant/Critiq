@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Default Mode',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 20),
                 ),
                 SubmenuButton(
                   style: ButtonStyle(
