@@ -9,7 +9,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:critiq/database/db_helper.dart';
 
 class DBBackup {
-  String exportBackupFileName = 'backup.ctq';
+  String exportBackupFileName =
+      'backup__${DateTime.now().day}_${DateTime.now().month}_${DateTime.now().year}__${DateTime.now().hour}_${DateTime.now().minute}_${DateTime.now().second}.ctq';
 
   dbExportToDownloadFolder() async {
     File result = await DBHelper().dbExport();
@@ -29,7 +30,7 @@ class DBBackup {
         .then((value) {
       Get.snackbar(
         'Data backup successful!',
-        'backup.ctq file saved in Downloads folder.',
+        '$exportBackupFileName file saved in Downloads folder.',
         dismissDirection: DismissDirection.horizontal,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green[300],
